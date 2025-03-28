@@ -1,0 +1,124 @@
+/* Modern, glassy UI */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f0f0f, #2a5298);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 85vw;
+    height: 90%;
+    margin: 10px;
+    color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Headings */
+h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Input Groups */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-align: left;
+    width: 100%;
+}
+
+/* File Input */
+input[type="file"], textarea {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+
+}
+
+input[type="file"]:hover, textarea:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Textarea */
+textarea {
+    height: 25vh;
+    resize: none;
+    font-size: 15px;
+}
+
+::-webkit-scrollbar-thumb{
+    background: rgba(255, 255, 255, 0.926);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-track{
+    background: rgb(0, 0, 0);
+    border-radius: 4px;
+}
+::-webkit-scrollbar{
+    width: 4px;
+}
+/* Buttons */
+button {
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-top: 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    transform: scale(1.05);
+}
+
+/* Status & Result */
+#status, #analysisResult,#resumeSuggestions {
+    margin-top: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 14px;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+#recommendedRoles{
+    font-size: 12px;
+}

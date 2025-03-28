@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h2>AI Resume Analyzer</h2>
+
+        <div class="input-group">
+            <label for="resumeInput">Upload Resume:</label>
+            <input type="file" id="resumeInput">
+            <button onclick="uploadResume()">Upload</button>
+        </div>
+        <div id="status"></div>
+
+        <!-- <h2>Match Job Description</h2>
+        <div class="input-group">
+            <label for="jobDesc">Job Description:</label>
+            <textarea id="jobDesc" placeholder="Paste job description here..."></textarea>
+            <button onclick="matchJob()">Match Job</button>
+        </div> -->
+
+        <!-- New sections for displaying AI results -->
+        <div class="result-section">
+            <h3>Resume Summary</h3>
+            <!-- <p id="resumeSummary">Upload a resume to see the summary.</p> -->
+            <textarea cols="300" disabled id="resumeSummary" placeholder="Upload a resume to see the summary"></textarea>
+        </div>
+
+        <div class="result-section">
+            <h3>Suggestions for Improvement</h3>
+            <p id="resumeSuggestions">No suggestions yet.</p>
+        </div>
+
+        <div class="result-section">
+            <h3>Recommended Job Roles</h3>
+            <p id="recommendedRoles">No roles found.</p>
+        </div>
+
+        <div class="result-section">
+            <h3>Missing Sections</h3>
+            <p id="missingSections">No missing sections detected.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
