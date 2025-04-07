@@ -30,12 +30,26 @@ const cleanText = (text) => {
 const analyzeResume = async (resumeText) => {
     try {
         const prompt = `
-        Provide a concise review to suggest skill enhancements or additions for better impact.
-        Resume Text:
-        ${resumeText} \n
-        and keep this response short.
-        `;
+Analyze the following resume content and return the following:
 
+1. A concise summary or review.
+2. A resume recognition score (0-100) based on industry relevance, skill richness, and structure.
+3. Skill improvement suggestions.
+4. Categorize the resume as one of the following levels: Beginner, Intermediate, Job Ready, or Expert.
+5. Extract top 5 technical skills (if any).
+
+Return the output in the following JSON format:
+{
+  "summary": "...",
+  "score": ...,
+  "level": "...",
+  "suggestions": "...",
+  "topSkills": ["...", "...", "..."]
+}
+
+Resume Text:
+${resumeText}
+        `;
 
         const response = await axios.post(
             "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct",
@@ -43,24 +57,19 @@ const analyzeResume = async (resumeText) => {
             { headers: { Authorization: `Bearer ${process.env.HUGGINGFACE_API_KEY}` } }
         );
 
-        if (!response.data || response.data.length === 0) {
-            throw new Error("AI response is empty.");
-        }
+        const aiText = response.data?.[0]?.generated_text;
+        // console.log("AI Response:", aiText);
 
-        const aiGeneratedText = response.data[0].generated_text;
-        const ind = aiGeneratedText.indexOf("response short.");
+        // Try to extract the JSON from the text (assuming the model returns it inline)
+        const jsonStart = aiText.lastIndexOf("{");
+        const jsonEnd = aiText.lastIndexOf("}");
+        // console.log("JSON Start:", jsonStart, "JSON End:", jsonEnd);
+        const jsonString = aiText.substring(jsonStart, jsonEnd + 1);
 
-        const rsp = aiGeneratedText
-        .substring(ind + 16)
-        .replace(/[\n\t]/g, " ")   // Remove newlines and tabs
-        .replace(/\s+/g, " ")      // Replace multiple spaces with a single space
-        .replace(/ - /g, "###")     // Replace ' - ' with a newline
-        .trim();
+        const parsed = JSON.parse(jsonString);
+        // console.log("Parsed JSON:", parsed);
+        return parsed;
 
-        // console.log("AI Raw Response:", rsp);
-
-
-        return rsp;
     } catch (error) {
         console.error("Error analyzing resume:", error.message);
         return { error: "Failed to process resume analysis." };
@@ -88,12 +97,8 @@ app.post("/upload", upload.single("resume"), async (req, res) => {
 
         // Analyze the resume using AI
         const result = await analyzeResume(resumeText);
-       
-        const ind = result.indexOf("###");
-        const resultx=result.slice(0,ind);
-        const suggestionsX = result.slice(ind);
- 
-        res.json({ result: resultx ,  suggestions: suggestionsX });
+
+        res.json({ result: result });
     } catch (error) {
         console.error("Server Error:", error.message);
         res.status(500).json({ error: "Failed to analyze resume" });
